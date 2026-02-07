@@ -1,24 +1,23 @@
-# Step 1: Build the app
+# ---------- BUILD STAGE ----------
 FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Copy package files and install dependencies
+# copy package files
 COPY package*.json ./
 RUN npm install
 
-# Copy source code and build
+# copy all source
 COPY . .
+
+# build react app
 RUN npm run build
 
-# Step 2: Serve with Nginx
-FROM nginx:stable-alpine
 
-# Copy build output to Nginx html folder
+# ---------- RUNTIME STAGE ----------
+FROM nginxinc/nginx-unprivileged:alpine
+
+# copy build files to nginx html folder
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
