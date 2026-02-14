@@ -43,6 +43,11 @@ Frontend running in browser
 
 Backend API working
 
+## Infrastructure as Code
+A basic Terraform configuration is included in the `terraform/` folder
+to demonstrate VM provisioning knowledge. Not executed due to
+account limitations.
+
 
 ## Troubleshooting
 
@@ -53,3 +58,5 @@ Backend API working
 ### Issue 2 – SQLite Database Error
 - Error: sqlite3.OperationalError: unable to open database file
 - Fix: Changed database path to `/data/db.sqlite3`, added Docker volume, and created writable /data folder in Dockerfile.
+
+
